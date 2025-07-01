@@ -1,0 +1,18 @@
+# Node modules in any directory
+**/node_modules/
+
+# Environment files in any directory
+**/.env
+**/.env.local
+**/.env.development
+**/.env.production
+**/.env.test
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-*
