@@ -1,17 +1,18 @@
 import { Outlet } from "react-router";
 // import { Button } from "./components/ui/button";
-// import Navbar from "./components/ui/layout/Navber";
+import Navbar from "./components/ui/layout/Navber";
+import Allboks from "./page/Allboks";
 
 const App = () => {
   return (
     <div>
 
-      {/* <Navbar/>111 */}
+      <Navbar/>
 
       <Outlet/>
       
+    <Allboks/>
 
-sdf
 
 
       
