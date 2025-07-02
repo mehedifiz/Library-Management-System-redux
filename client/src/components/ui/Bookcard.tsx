@@ -1,4 +1,7 @@
+import { useDeleteBookMutation } from "@/redux/api/baseapi";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
+import { toast } from "sonner";
+
 
  
 const BookCard = ({ book } ) => {
@@ -9,6 +12,17 @@ const BookCard = ({ book } ) => {
     HISTORY: "bg-amber-100 text-amber-800",
     BIOGRAPHY: "bg-pink-100 text-pink-800",
     FANTASY: "bg-indigo-100 text-indigo-800"
+  };
+
+  const [deleteBook] = useDeleteBookMutation()
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteBook(id)
+      toast.success("Book deleted successfully");
+    } catch (error) {
+      console.error("Failed to delete book:", error);
+    }
   };
 
   return (
@@ -49,7 +63,8 @@ const BookCard = ({ book } ) => {
               {book.available ? 'Available' : 'Checked Out'}
             </span>
           </div>
-          <button 
+          <div className="flex gap-4">
+            <button 
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
               book.available 
                 ? 'bg-blue-600 text-white hover:bg-blue-700' 
@@ -59,6 +74,14 @@ const BookCard = ({ book } ) => {
           >
             {book.available ? 'Borrow' : 'Unavailable'}
           </button>
+          <button 
+          onClick={()=>handleDelete(book._id)}
+            className={`px-3 py-1 rounded text-sm font-medium transition-colors bg-red-600  text-rose-200  `}
+            
+          >
+            Delete
+          </button>
+          </div>
         </div>
       </CardFooter>
     </Card>

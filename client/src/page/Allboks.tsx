@@ -18,7 +18,6 @@ const Allboks = () => {
         return <div>Loading...</div>;
     }
 
-console.log(data.data);
 
     return (
         <div>
