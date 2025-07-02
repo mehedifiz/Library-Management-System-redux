@@ -1,3 +1,4 @@
+import Addbook from '@/components/ui/Addbook';
 import Bookcard from '@/components/ui/Bookcard';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { useGetBooksQuery } from '@/redux/api/baseapi';
@@ -23,6 +24,7 @@ console.log(data.data);
         <div>
 
             <h1 className='text-2xl font-medium text-center '>  All Books</h1>
+            <Addbook></Addbook>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 '>
 

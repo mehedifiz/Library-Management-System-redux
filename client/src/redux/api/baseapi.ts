@@ -11,10 +11,20 @@ const baseApi = createApi({
 
 
 
+        }),
+        CreateBooks: builder.mutation({
+            query: (bookData) => ({
+                url: "/books",
+                method: "POST",
+                body: bookData,
+            })
+
+
+
         })
 
     })
 })
 
-export const { useGetBooksQuery } = baseApi;
+export const { useGetBooksQuery, useCreateBooksMutation } = baseApi;
 export { baseApi }; 
