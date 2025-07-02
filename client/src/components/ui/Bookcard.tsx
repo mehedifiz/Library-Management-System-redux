@@ -1,6 +1,8 @@
-import { useDeleteBookMutation } from "@/redux/api/baseapi";
+import { useBorrowBookMutation, useDeleteBookMutation, useGetBooksQuery, useUpdateBookMutation } from "@/redux/api/baseapi";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 import { toast } from "sonner";
+import Updatebook from "./updateBook";
+import BorrowBook from "./borrowBook";
 
 
  
@@ -13,17 +15,24 @@ const BookCard = ({ book } ) => {
     BIOGRAPHY: "bg-pink-100 text-pink-800",
     FANTASY: "bg-indigo-100 text-indigo-800"
   };
+     const  {refetch}= useGetBooksQuery(undefined)
 
-  const [deleteBook] = useDeleteBookMutation()
+
+  const [deleteBook] = useDeleteBookMutation();
+
 
   const handleDelete = async (id) => {
     try {
       await deleteBook(id)
+      refetch()
       toast.success("Book deleted successfully");
     } catch (error) {
       console.error("Failed to delete book:", error);
     }
   };
+
+
+ 
 
   return (
     <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200">
@@ -67,12 +76,12 @@ const BookCard = ({ book } ) => {
             <button 
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
               book.available 
-                ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                ?'' 
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             disabled={!book.available}
           >
-            {book.available ? 'Borrow' : 'Unavailable'}
+            {book.available ? <BorrowBook name={book.title} _id={book._id} isbn={book.isbn}/> : 'Unavailable'}
           </button>
           <button 
           onClick={()=>handleDelete(book._id)}
@@ -81,6 +90,7 @@ const BookCard = ({ book } ) => {
           >
             Delete
           </button>
+          <Updatebook book={book}/>
           </div>
         </div>
       </CardFooter>

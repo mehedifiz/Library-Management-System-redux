@@ -18,10 +18,12 @@ import {
 	SelectValue,
 } from "./select";
 import { Textarea } from "./textarea";
-import { useCreateBooksMutation } from "@/redux/api/baseapi";
+import { useCreateBooksMutation, useGetBooksQuery } from "@/redux/api/baseapi";
 import { toast } from "sonner";
 
 const Addbook = () => {
+		 const  {refetch}= useGetBooksQuery(undefined)
+	
 	const [createTask, { data, isError, isLoading }] = useCreateBooksMutation();
 	const [formData, setFormData] = useState({
   title: '',
@@ -55,7 +57,7 @@ const Addbook = () => {
 		const res = await createTask(formData).unwrap();
         toast("Book added successfully!")
 
-		console.log("cons ", res);
+		refetch()
 
 		setOpen(false);
 		setFormData({

@@ -3,7 +3,6 @@ import Bookcard from '@/components/ui/Bookcard';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { useGetBooksQuery } from '@/redux/api/baseapi';
 import type { IBook } from '@/types/types';
-import React from 'react';
 
 const Allboks = () => {
 
@@ -12,7 +11,10 @@ const Allboks = () => {
     // const books = useAppSelector((state) => state.book.books)
     // const books = useAppSelector((state) => state.book.books)
 
-    const {data , isLoading ,isError}= useGetBooksQuery(undefined)
+     const  {data , isLoading ,isError , refetch}= useGetBooksQuery(undefined)
+ 
+
+    
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -23,7 +25,8 @@ const Allboks = () => {
         <div>
 
             <h1 className='text-2xl font-medium text-center '>  All Books</h1>
-            <Addbook></Addbook>
+            <Addbook onRefetch={refetch} />
+
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 '>
 
@@ -39,5 +42,6 @@ const Allboks = () => {
         </div>
     );
 };
+
 
 export default Allboks;

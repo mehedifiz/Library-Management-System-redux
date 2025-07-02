@@ -9,8 +9,8 @@ export default function Navbar() {
         </div>
         <ul className="flex space-x-6">
           <li>
-            <Link 
-              href="#books" 
+            <Link  to={"/books"}
+               
               className="text-white hover:bg-gray-700 px-3 py-2 rounded transition-colors duration-300"
             >
               Books
@@ -18,7 +18,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link 
-              href="#borrow" 
+              to="/borrow" 
               className="text-white hover:bg-gray-700 px-3 py-2 rounded transition-colors duration-300"
             >
               Borrow

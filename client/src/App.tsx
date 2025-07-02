@@ -11,7 +11,7 @@ const App = () => {
 
       <Outlet/>
       
-    <Allboks/>
+    {/* <Allboks/> */}
 
 
 
