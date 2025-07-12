@@ -1,6 +1,5 @@
 
 import { configureStore } from '@reduxjs/toolkit'
-import { bookReducer } from './features/bookSlice'
 import { baseApi } from './api/baseapi'
 
 

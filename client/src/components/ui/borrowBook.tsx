@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
 import { useBorrowBookMutation, useGetBooksQuery } from '@/redux/api/baseapi';
 
-const BorrowBook = ({ _id,  name  }) => {
+const BorrowBook = ({ _id,  name } :{ _id: string; name: string }) => {
   const [open, setOpen] = useState(false);
   const [createBorrow] = useBorrowBookMutation();
 
@@ -22,6 +22,8 @@ const BorrowBook = ({ _id,  name  }) => {
     quantity: 1,
     dueDate: ''
   });
+
+  console.log(formData);
 
   const {refetch} = useGetBooksQuery(undefined)
 
@@ -35,13 +37,26 @@ const BorrowBook = ({ _id,  name  }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Due date validation: must not be in the past
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(formData.dueDate);
+    if (due < today) {
+      toast.error("Due date cannot be in the past.");
+      return;
+    }
     try {
-      const res = await createBorrow({ ...formData }).unwrap();
-      toast.success("Book borrowed successfully");
-      console.log("Borrowed:", res);
-      refetch()
-      setFormData({ book: _id, quantity: 1, dueDate: '' }); 
+       await createBorrow({ ...formData }).unwrap();
+      toast.success("Book borrowed successfully", {
+        description: "You will be redirected to the borrow summary."
+      });
+      refetch();
+      setFormData({ book: _id, quantity: 1, dueDate: '' });
       setOpen(false);
+      // Redirect to borrow summary after a short delay
+      setTimeout(() => {
+        window.location.href = "/borrow";
+      }, 1200);
     } catch (error) {
       console.error(error);
       toast.error("Failed to borrow book");

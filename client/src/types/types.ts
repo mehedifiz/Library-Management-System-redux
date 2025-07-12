@@ -1,5 +1,5 @@
 export interface IBook {
-  id: string;
+  _id: string;
   title: string;
   author: string;
   genre: 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'HISTORY' | 'BIOGRAPHY' | 'FANTASY';
@@ -9,4 +9,18 @@ export interface IBook {
   available: boolean;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IBorrow {
+  book: number;
+  quantity: number;
+  dueDate: Date;
+}
+
+export interface IBorrowSumm {
+  totalQuantity: number;
+  book: {
+    title: string;
+    isbn: string;
+  };
 }

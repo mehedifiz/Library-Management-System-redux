@@ -1,5 +1,5 @@
-import React from 'react';
 import { useGetborrowBookQuery } from '@/redux/api/baseapi';
+import type {   IBorrowSumm } from '@/types/types';
 
 const Borrow = () => {
   const { data, isLoading, isError } = useGetborrowBookQuery(undefined);
@@ -25,7 +25,7 @@ const Borrow = () => {
               </tr>
             </thead>
             <tbody>
-              {data.data.map((entry, index) => (
+              {data.data.map((entry : IBorrowSumm, index: number) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border-b">{index + 1}</td>
                   <td className="px-4 py-2 border-b">{entry.book.title}</td>

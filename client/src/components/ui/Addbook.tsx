@@ -24,7 +24,7 @@ import { toast } from "sonner";
 const Addbook = () => {
 		 const  {refetch}= useGetBooksQuery(undefined)
 	
-	const [createTask, { data, isError, isLoading }] = useCreateBooksMutation();
+	const [createTask] = useCreateBooksMutation();
 	const [formData, setFormData] = useState({
   title: '',
   author: '',
@@ -37,7 +37,7 @@ const Addbook = () => {
 
 	const [open, setOpen] = useState(false);
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
 
 		setFormData((prev) => ({
@@ -50,11 +50,11 @@ const Addbook = () => {
 		setFormData((prev) => ({ ...prev, genre: value }));
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit =  async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("Submitted Book:", formData);
 
-		const res = await createTask(formData).unwrap();
+		 await createTask(formData).unwrap();
         toast("Book added successfully!")
 
 		refetch()

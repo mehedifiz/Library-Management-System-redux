@@ -1,8 +1,8 @@
-import { Link } from "react-router";
+import { Link } from 'react-router';
 
-export default function Navbar() {
+const Navber = () => {
   return (
-    <nav className="bg-gray-800 p-4">
+   <nav className="bg-gray-800 p-4">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         <div className="text-white text-xl font-bold">
           Library
@@ -28,4 +28,6 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};
+
+export default Navber;

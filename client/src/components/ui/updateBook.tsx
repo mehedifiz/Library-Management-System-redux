@@ -20,9 +20,10 @@ import {
 import { Textarea } from "./textarea";
 import {  useGetBooksQuery, useUpdateBookMutation } from "@/redux/api/baseapi";
 import { toast } from "sonner";
+import type { IBook } from "@/types/types";
 
 
-const Updatebook = ({ book }) => {
+const Updatebook =({ book }: { book: IBook }) => {
   const [updateBook] = useUpdateBookMutation();
            const  {refetch}= useGetBooksQuery(undefined)
   
@@ -38,7 +39,7 @@ const Updatebook = ({ book }) => {
 	available: book.available ?? true,
   });
  
-  const handleChange = (e) => {
+  const handleChange = (e : any) => {
 	const { name, value, type, checked } = e.target;
 	setFormData((prev) => ({
 	  ...prev,
@@ -46,11 +47,11 @@ const Updatebook = ({ book }) => {
 	}));
   };
 
-  const handleGenreChange = (value) => {
-	setFormData((prev) => ({ ...prev, genre: value }));
+  const handleGenreChange = ( value: string) => {
+setFormData((prev) => ({ ...prev, genre: value as IBook['genre'] }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async  (e: React.FormEvent) => {
 	e.preventDefault();
 	try {
 	  await updateBook(formData).unwrap();
@@ -65,7 +66,7 @@ const Updatebook = ({ book }) => {
   return (
 	<Dialog open={open} onOpenChange={setOpen}>
 	  <DialogTrigger asChild>
-		<Button onClick={() => setOpen(true)}>Update Book</Button>
+		<Button className="px-2" onClick={() => setOpen(true)}>Update Book</Button>
 	  </DialogTrigger>
 	  <DialogContent className="max-w-md">
 		<DialogHeader>
@@ -145,7 +146,7 @@ const Updatebook = ({ book }) => {
 			  value={formData.copies}
 			  onChange={handleChange}
 			  required
-			  min={1}
+			  min={0}
 			/>
 		  </div>
 		  <Button type="submit" className="w-full">
